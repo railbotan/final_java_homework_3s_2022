@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dismissals</title>
+</head>
+<body>
+<h1>Приказы об увольнениях</h1>
+<p>Разделы:</p>
+<ol>
+    <li><a href="/">Главная</a></li>
+    <li><a href="/mails">Письма</a></li>
+    <li><a href="/employments">Приказы об принятии на работу</a></li>
+</ol>
+<p th:text="${'Всего приказов: ' + count}"></p>
+<p>Из них:</p>
+<ul>
+    <li th:text="${'Не исполненных: ' + statistic.get(0)}"></li>
+    <li th:text="${'Исполненных: ' + statistic.get(1)}"></li>
+</ul>
+<form action="/dismissals" th:action="@{/dismissals-exec}" method="post">
+    <label>
+        Номер приказа
+        <input type="number" th:name="number" />
+    </label>
+    <button type="submit" name="action">Исполнить</button>
+</form>
+<form action="/dismissals" th:action="@{/dismissals}" th:object="${dismissal}" method="post">
+    <label>
+        Название
+        <input type="text" th:field="*{name}" />
+    </label>
+    <label>
+        Сотрудник
+        <input type="text" th:field="*{employee}" />
+    </label>
+    <label>
+        Приказ
+        <input type="text" th:field="*{orderText}" />
+    </label>
+    <label>
+        Причина
+        <input type="text" th:field="*{reasonDismissal}" />
+    </label>
+    <button type="submit" name="action">Добавить</button>
+</form>
+<table border="1">
+    <tr>
+        <th>Номер</th>
+        <th>Название</th>
+        <th>Сотрудник</th>
+        <th>Приказ</th>
+        <th>Причина</th>
+        <th>Статус</th>
+    </tr>
+    <tr th:each="dismissal : ${dismissals}">
+        <td th:text="${dismissal.getNumber()}">Номер</td>
+        <td th:text="${dismissal.getName()}">Название</td>
+        <td th:text="${dismissal.getEmployee()}">Сотрудник</td>
+        <td th:text="${dismissal.getOrderText()}">Приказ</td>
+        <td th:text="${dismissal.getReasonDismissal()}">Причина</td>
+        <td th:text="${dismissal.getStatus().getValue()}">Статус</td>
+    </tr>
+</table>
+</body>
+</html>

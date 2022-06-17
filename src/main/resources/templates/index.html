@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Documents</title>
+</head>
+<body>
+    <h1>Документы</h1>
+    <p th:text="${'Всего документов: ' + count}"></p>
+    <p>Из них:</p>
+    <ul>
+        <li th:text="${'Писем: ' + statistic.get('mails')}"></li>
+        <li th:text="${'Приказов о принятии на работу: ' + statistic.get('employments')}"></li>
+        <li th:text="${'Приказов об увольнении: ' + statistic.get('dismissals')}"></li>
+    </ul>
+    <p>Разделы:</p>
+    <ol>
+        <li><a href="/mails">Письма</a></li>
+        <li><a href="/employments">Приказы об принятии на работу</a></li>
+        <li><a href="/dismissals">Приказы об увольнениях</a></li>
+    </ol>
+</body>
+</html>

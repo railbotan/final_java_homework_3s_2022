@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mails</title>
+</head>
+<body>
+    <h1>Письма</h1>
+    <p>Разделы:</p>
+    <ol>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/employments">Приказы об принятии на работу</a></li>
+        <li><a href="/dismissals">Приказы об увольнениях</a></li>
+    </ol>
+    <p th:text="${'Всего писем: ' + count}"></p>
+    <form action="/mails" th:action="@{/mails}" th:object="${mail}" method="post">
+        <label>
+            Название
+            <input type="text" th:field="*{name}" />
+        </label>
+        <label>
+            Отправитель
+            <input type="text" th:field="*{from}" />
+        </label>
+        <label>
+            Получатель
+            <input type="text" th:field="*{to}" />
+        </label>
+        <label>
+            Сообщение
+            <input type="text" th:field="*{message}" />
+        </label>
+        <button type="submit" name="action">Добавить</button>
+    </form>
+    <table border="1">
+        <tr>
+            <th>Номер</th>
+            <th>Название</th>
+            <th>Отправитель</th>
+            <th>Получатель</th>
+            <th>Сообщение</th>
+        </tr>
+        <tr th:each="mail : ${mails}">
+            <td th:text="${mail.getNumber()}">Номер</td>
+            <td th:text="${mail.getName()}">Название</td>
+            <td th:text="${mail.getFrom()}">Отправитель</td>
+            <td th:text="${mail.getTo()}">Получатель</td>
+            <td th:text="${mail.getMessage()}">Сообщение</td>
+        </tr>
+    </table>
+</body>
+</html>
